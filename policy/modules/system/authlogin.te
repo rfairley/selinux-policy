@@ -77,6 +77,10 @@ files_pid_file(pam_var_console_t)
 type pam_var_run_t;
 files_pid_file(pam_var_run_t)
 
+type pam_init_var_run_t;
+allow init_t pam_init_var_run_t:dir search_dir_perms;
+allow init_t pam_init_var_run_t:file { getattr create read write append };
+
 type shadow_t;
 files_auth_file(shadow_t)
 neverallow ~can_read_shadow_passwords shadow_t:file read;
@@ -196,7 +200,7 @@ allow pam_timestamp_t self:msgq create_msgq_perms;
 allow pam_timestamp_t self:msg { send receive };
 
 delete_files_pattern(pam_timestamp_t, pam_var_run_t, pam_var_run_t)
-read_files_pattern(pam_timestamp_t, pam_var_run_t, pam_var_run_t)
+read_files_pattern(pam_timestamp_t, pam_var_run_t, pam_var_run_t, pam_init_var_run_t)
 files_list_pids(pam_timestamp_t)
 
 allow pam_timestamp_t pam_timestamp_tmp_t:dir manage_dir_perms;
