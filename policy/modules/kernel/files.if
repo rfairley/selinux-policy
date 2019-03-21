@@ -8105,7 +8105,7 @@ interface(`files_dontaudit_ioctl_all_pids',`
 
 ########################################
 ## <summary>
-##	Relable all pid directories
+##	Relabel all pid directories
 ## </summary>
 ## <param name="domain">
 ##	<summary>
@@ -8257,7 +8257,7 @@ interface(`files_map_all_pids',`
 
 ########################################
 ## <summary>
-##	Relable all pid files
+##	Relabel all pid files
 ## </summary>
 ## <param name="domain">
 ##	<summary>
