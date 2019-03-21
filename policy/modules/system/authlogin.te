@@ -77,6 +77,13 @@ files_pid_file(pam_var_console_t)
 type pam_var_run_t;
 files_pid_file(pam_var_run_t)
 
+type pam_motd_var_run_t;
+files_pid_file(pam_motd_var_run_t)
+# Allow enabled systemd units to call scripts that write to /run/motd and
+# files in /run/motd.d.
+allow init_t pam_motd_var_run_t:dir search_dir_perms;
+allow init_t pam_motd_var_run_t:file manage_file_perms;
+
 type shadow_t;
 files_auth_file(shadow_t)
 neverallow ~can_read_shadow_passwords shadow_t:file read;
@@ -649,6 +656,12 @@ userdom_search_admin_dir(login_pgm)
 userdom_stream_connect(login_pgm)
 userdom_manage_user_tmp_dirs(login_pgm)
 userdom_manage_user_tmp_files(login_pgm)
+
+# Allow sshd_t (and other login programs) to read files at /run/motd and in
+# /run/motd.d.
+files_search_pids(login_pgm)
+allow login_pgm pam_motd_var_run_t:dir list_dir_perms;
+allow login_pgm pam_motd_var_run_t:file read_file_perms;
 
 optional_policy(`
 	afs_read_config(login_pgm)

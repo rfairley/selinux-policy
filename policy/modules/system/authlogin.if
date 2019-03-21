@@ -2130,6 +2130,7 @@ interface(`auth_filetrans_named_content',`
 		type wtmp_t;
 		type pam_var_console_t;
 		type pam_var_run_t;
+		type pam_motd_var_run_t;
 		type auth_cache_t;
 	')
 
@@ -2160,6 +2161,8 @@ interface(`auth_filetrans_named_content',`
 	files_pid_filetrans($1, pam_var_run_t, dir, "pam_ssh")
 	files_pid_filetrans($1, pam_var_run_t, dir, "sepermit")
 	files_pid_filetrans($1, pam_var_run_t, dir, "sudo")
+	files_pid_filetrans($1, pam_motd_var_run_t, dir, "pam_motd")
+	files_pid_filetrans($1, pam_motd_var_run_t, file, "pam_motd")
 	logging_log_named_filetrans($1, wtmp_t, file, "wtmp")
 	files_var_filetrans($1, auth_cache_t, dir, "coolkey")
 ')
