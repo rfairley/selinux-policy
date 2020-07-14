@@ -77,6 +77,13 @@ files_pid_file(pam_var_console_t)
 type pam_var_run_t;
 files_pid_file(pam_var_run_t)
 
+# For MOTD files read by authlogin programs, e.g. sshd, located in
+# /run/motd.d/, or symlinked out from /run/motd.d/
+type pam_motd_var_run_t;
+files_type(pam_motd_var_run_t);
+read_files_pattern($1, pam_motd_var_run_t, pam_motd_var_run_t);
+read_lnk_pattern($1, pam_motd_var_run_t, pam_motd_var_run_t);
+
 type shadow_t;
 files_auth_file(shadow_t)
 neverallow ~can_read_shadow_passwords shadow_t:file read;
